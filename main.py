@@ -1,18 +1,44 @@
 import tkinter
+import tkinter.font as font
 
-win = tkinter.Tk()
-win.geometry("300x300+500+140")
+class mainPage(tkinter.Tk):
+    def __init__(self, parent):
+        tkinter.Tk.__init__(self,parent)
+        
+        self.parent = parent
+        self.initialize()
 
-btn1 = tkinter.Button(win,text="btn1")
-btn1.config(width=50)
-btn1.pack()
+    def initialize(self):
+        # set window env
+        self.grid()
+        self .resizable(False, False)
+        self.geometry("300x300+500+140")
 
-btn2 = tkinter.Button(win,text="btn2")
-btn2.config(width=50)
-btn2.pack()
+        btn1 = tkinter.Button(self,text="세계시간",width=20,height=10,command=self.onBtn1Click)
+        btn1.grid(column=0,row=0)
 
-btn3 = tkinter.Button(win,text="btn3")
-btn3.config(width=50)
-btn3.pack()
+        btn2 = tkinter.Button(self,text="스톱워치",width=20,height=10,command=self.onBtn2Click)
+        btn2.grid(column=1,row=0)
 
-win.mainloop()
+        btn3 = tkinter.Button(self,text="타이머",width=20,height=10,command=self.onBtn3Click)
+        btn3.grid(column=0,row=1)
+
+        btn4 = tkinter.Button(self,text="etc",width=20,height=10,command=self.onBtn4Click)
+        btn4.grid(column=1,row=1)
+
+    def onBtn1Click(self):
+        pass
+
+    def onBtn2Click(self):
+        pass
+
+    def onBtn3Click(self):
+        pass
+
+    def onBtn4Click(self):
+        pass
+
+
+app = mainPage(None)
+app.title("Main_Page")
+app.mainloop()
