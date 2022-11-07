@@ -40,5 +40,5 @@ class mainPage(tkinter.Tk):
 
 
 app = mainPage(None)
-app.title("Main_Page")
+app.title("Main Page")
 app.mainloop()
