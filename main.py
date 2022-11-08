@@ -1,7 +1,8 @@
 import tkinter
 import tkinter.font as font
+from worldtime import WorldTimePage
 
-class mainPage(tkinter.Tk):
+class MainPage(tkinter.Tk):
     def __init__(self, parent):
         tkinter.Tk.__init__(self,parent)
         
@@ -11,8 +12,8 @@ class mainPage(tkinter.Tk):
     def initialize(self):
         # set window env
         self.grid()
-        self .resizable(False, False)
-        self.geometry("300x300+500+140")
+        self.resizable(False, False)
+        self.geometry("300x320+500+140")
 
         btn1 = tkinter.Button(self,text="세계시간",width=20,height=10,command=self.onBtn1Click)
         btn1.grid(column=0,row=0)
@@ -27,7 +28,7 @@ class mainPage(tkinter.Tk):
         btn4.grid(column=1,row=1)
 
     def onBtn1Click(self):
-        pass
+        WorldTimePage(None)
 
     def onBtn2Click(self):
         pass
@@ -39,6 +40,6 @@ class mainPage(tkinter.Tk):
         pass
 
 
-app = mainPage(None)
+app = MainPage(None)
 app.title("Main Page")
 app.mainloop()
