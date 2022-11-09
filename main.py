@@ -2,10 +2,11 @@ import tkinter
 import tkinter.font as font
 from worldtime import WorldTimePage
 
+
 class MainPage(tkinter.Tk):
     def __init__(self, parent):
-        tkinter.Tk.__init__(self,parent)
-        
+        tkinter.Tk.__init__(self, parent)
+
         self.parent = parent
         self.initialize()
 
@@ -15,20 +16,24 @@ class MainPage(tkinter.Tk):
         self.resizable(False, False)
         self.geometry("300x320+500+140")
 
-        btn1 = tkinter.Button(self,text="세계시간",width=20,height=10,command=self.onBtn1Click)
-        btn1.grid(column=0,row=0)
+        btn1 = tkinter.Button(self, text="세계시간", width=20,
+                              height=10, command=self.onBtn1Click)
+        btn1.grid(column=0, row=0)
 
-        btn2 = tkinter.Button(self,text="스톱워치",width=20,height=10,command=self.onBtn2Click)
-        btn2.grid(column=1,row=0)
+        btn2 = tkinter.Button(self, text="스톱워치", width=20,
+                              height=10, command=self.onBtn2Click)
+        btn2.grid(column=1, row=0)
 
-        btn3 = tkinter.Button(self,text="타이머",width=20,height=10,command=self.onBtn3Click)
-        btn3.grid(column=0,row=1)
+        btn3 = tkinter.Button(self, text="타이머", width=20,
+                              height=10, command=self.onBtn3Click)
+        btn3.grid(column=0, row=1)
 
-        btn4 = tkinter.Button(self,text="etc",width=20,height=10,command=self.onBtn4Click)
-        btn4.grid(column=1,row=1)
+        btn4 = tkinter.Button(self, text="etc", width=20,
+                              height=10, command=self.onBtn4Click)
+        btn4.grid(column=1, row=1)
 
     def onBtn1Click(self):
-        WorldTimePage(None)
+        WorldTimePage(None).mainloop()
 
     def onBtn2Click(self):
         pass
@@ -41,5 +46,5 @@ class MainPage(tkinter.Tk):
 
 
 app = MainPage(None)
-app.title("Main Page")
+app.title("SCHTime")
 app.mainloop()
