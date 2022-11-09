@@ -13,7 +13,7 @@ class WorldTimePage(tkinter.Tk):
         self.grid()
         self.grid_columnconfigure((0, 1), weight=1)
         self.resizable(False, False)
-        self.geometry("300x320+500+140")
+        self.geometry("300x320+800+140")
         self.title("세계시간")
 
         # TODO: 동적으로 시간 표시
