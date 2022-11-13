@@ -1,12 +1,20 @@
-import tkinter as tk
+import tkinter
 from tkinter.font import Font
 from time import sleep
 from threading import Thread
 
 
-class Stopwatch(tk.Frame):
+class StopwatchPage(tkinter.Tk):
     def __init__(self, parent):
-        tk.Frame.__init__(self, parent)
+        tkinter.Tk.__init__(self, parent)
+        self.parent = parent
+        self.initialize()
+        self.thread.start()
+
+    def initialize(self):
+        self.minsize(385, 100)
+        self.geometry("600x185+800+140")
+        self.title("스톱워치")
         self.saved = []
         self.seconds = 0
         self.minutes = 0
@@ -14,31 +22,34 @@ class Stopwatch(tk.Frame):
         self.time = "00:00:00"
         self.active = False
         self.kill = False
-        self.left = tk.Frame(self)
-        self.clock = tk.Label(self.left, text=str(self.time),
-                              font=Font(family='Helvetica', size=36,
-                                        weight='bold'))
-        self.button_frame = tk.Frame(self.left)
-        self.active_button = tk.Button(self.button_frame, text="Start", command=self.start)
-        self.restart_button = tk.Button(self.button_frame, text="Restart",
-                                        command=self.restart)
-        self.save_button = tk.Button(self.button_frame, text="Save time", command=self.save)
-        self.clear_button = tk.Button(self.button_frame, text="Clear times",
-                                      command=self.clear)
-        self.saved_canvas = tk.Canvas(self, width=150)
-        self.saved_frame = tk.LabelFrame(self.saved_canvas, text="Saved Times:")
-        self.scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL,
-                                      command=self.saved_canvas.yview)
+        self.left = tkinter.Frame(self)
+        self.clock = tkinter.Label(
+            self.left, text=str(self.time), font=Font(size=36))
+        self.button_frame = tkinter.Frame(self.left)
+        self.active_button = tkinter.Button(
+            self.button_frame, text="시작", command=self.start)
+        self.restart_button = tkinter.Button(self.button_frame, text="재시작",
+                                             command=self.restart)
+        self.save_button = tkinter.Button(
+            self.button_frame, text="랩", command=self.save)
+        self.clear_button = tkinter.Button(self.button_frame, text="랩 초기화",
+                                           command=self.clear)
+        self.saved_canvas = tkinter.Canvas(self, width=150)
+        self.saved_frame = tkinter.LabelFrame(self.saved_canvas, text="랩:")
+        self.scrollbar = tkinter.Scrollbar(self, orient=tkinter.VERTICAL,
+                                           command=self.saved_canvas.yview)
 
-        self.left.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-        self.clock.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-        self.button_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=1)
-        self.active_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-        self.restart_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-        self.clear_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-        self.save_button.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-        self.saved_canvas.pack(side=tk.LEFT, fill=tk.Y, expand=0)
-        self.scrollbar.pack(side=tk.LEFT, fill=tk.Y, expand=0)
+        self.left.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.clock.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+        self.button_frame.pack(side=tkinter.BOTTOM,
+                               fill=tkinter.BOTH, expand=1)
+        self.active_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.restart_button.pack(
+            side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.clear_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.save_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.saved_canvas.pack(side=tkinter.LEFT, fill=tkinter.Y, expand=0)
+        self.scrollbar.pack(side=tkinter.LEFT, fill=tkinter.Y, expand=0)
 
         self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
                                         window=self.saved_frame)
@@ -82,11 +93,11 @@ class Stopwatch(tk.Frame):
 
     def start(self):
         self.active = True
-        self.active_button.config(text="Pause", command=self.pause)
+        self.active_button.config(text="일시정지", command=self.pause)
 
     def pause(self):
         self.active = False
-        self.active_button.config(text="Start", command=self.start)
+        self.active_button.config(text="시작", command=self.start)
 
     def restart(self):
         self.active = False
@@ -95,14 +106,14 @@ class Stopwatch(tk.Frame):
         self.minutes = 0
         self.hours = 0
         self.clear()
-        self.active_button.config(text="Start", command=self.start)
+        self.active_button.config(text="시작", command=self.start)
         self.clock["text"] = str(self.time)
 
     def save(self):
         self.saved.append(self.time)
         num = len(self.saved)
-        savedTime = tk.Label(self.saved_frame,
-                             text=f"Time #{num} - {self.saved[-1]}")
+        savedTime = tkinter.Label(self.saved_frame,
+                                  text=f"랩 #{num} - {self.saved[-1]}")
         savedTime.grid(row=len(self.saved), column=0, sticky="EW")
         self.saved_canvas.delete("saved")
         self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
@@ -114,23 +125,11 @@ class Stopwatch(tk.Frame):
     def clear(self):
         self.saved = []
         self.saved_frame.destroy()
-        self.saved_frame = tk.LabelFrame(self.saved_canvas, text="Saved Times:")
+        self.saved_frame = tkinter.LabelFrame(
+            self.saved_canvas, text="Saved Times:")
         self.saved_canvas.delete("saved")
         self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
                                         window=self.saved_frame)
         self.saved_canvas.update_idletasks()
         self.saved_canvas.configure(scrollregion=self.saved_canvas.bbox('all'),
                                     yscrollcommand=self.scrollbar.set)
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.minsize(385, 100)
-    root.geometry("600x185")
-    root.title("Stopwatch")
-
-    stopwatch = Stopwatch(root)
-    stopwatch.pack(fill=tk.BOTH, expand=1)
-    stopwatch.thread.start()
-
-    root.mainloop()

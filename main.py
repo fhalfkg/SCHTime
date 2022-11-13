@@ -1,6 +1,6 @@
 import tkinter
-import tkinter.font as font
 from worldtime import WorldTimePage
+from stopwatch import StopwatchPage
 
 
 class MainPage(tkinter.Tk):
@@ -36,7 +36,7 @@ class MainPage(tkinter.Tk):
         WorldTimePage(None).mainloop()
 
     def onBtn2Click(self):
-        pass
+        StopwatchPage(None).mainloop()
 
     def onBtn3Click(self):
         pass
